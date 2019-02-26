@@ -3,8 +3,11 @@ package kr.or.ddit.ranger.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RangerDaoImpl implements IRangerDao{
+import org.springframework.stereotype.Repository;
 
+@Repository("rangerD")
+public class RangerDaoImpl implements IRangerDao{
+	
 	public RangerDaoImpl() {
 		
 	}

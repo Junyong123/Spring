@@ -2,11 +2,16 @@ package kr.or.ddit.ranger.service;
 
 import java.util.List;
 
-import kr.or.ddit.ranger.dao.IRangerDao;
-import kr.or.ddit.ranger.dao.RangerDaoImpl;
+import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.ranger.dao.IRangerDao;
+
+@Service("rangerS")
 public class RangerServiceImpl implements IRangerService{
 
+	@Resource(name="rangerD")
 	private IRangerDao rangerDao;
 	
 	public RangerServiceImpl() {
@@ -26,6 +31,10 @@ public class RangerServiceImpl implements IRangerService{
 		// new 연산자를 사용하지 않음
 		this.rangerDao = rangerDao;
 	}
-	
+
+	@Override
+	public IRangerDao getRangerDao() {
+		return this.rangerDao;
+	}
 	
 }

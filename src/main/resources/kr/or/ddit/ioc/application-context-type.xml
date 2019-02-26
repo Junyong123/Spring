@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean name="rangerVO" class="kr.or.ddit.ranger.model.RangerVO">
+		<property name="userId" value="brown"/>
+		
+		<!-- birth 타입은 Date 타입이며, 주입하고자 하는 타입은 문자열이다 -->
+		<property name="birth" value="2018-08-08"/>
+	</bean>
+	
+	<bean id="dateEditor" class="org.springframework.beans.propertyeditors.CustomDateEditor">
+		<constructor-arg>
+			<bean class="java.text.SimpleDateFormat">
+				<constructor-arg value="yyyy-MM-dd"/>
+			</bean>
+		</constructor-arg>
+		<constructor-arg value="true" />
+	</bean>
+	
+	<bean id="customEditorConfigurer" class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="customEditors">
+			<map>
+				<!-- value-ref = "dateEditor"는 위에있는 bean에서 지정한 id -->
+				<entry key="java.util.Date" value-ref="dateEditor"/> 
+			</map>
+		</property>
+	</bean>
+	
+</beans>
