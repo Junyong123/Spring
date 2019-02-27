@@ -5,10 +5,19 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-@Repository("rangerD")
+@Repository("rangerDao")
 public class RangerDaoImpl implements IRangerDao{
 	
+	private List<String> rangers;
+
 	public RangerDaoImpl() {
+		rangers = new ArrayList<String>();
+		
+		rangers.add("brown");
+		rangers.add("cony");
+		rangers.add("james");
+		rangers.add("moon");
+		rangers.add("sally");
 		
 	}
 
@@ -21,14 +30,18 @@ public class RangerDaoImpl implements IRangerDao{
 	*/
 	@Override
 	public List<String> getRangers() {
-		List<String> rangers = new ArrayList<String>();
-		rangers.add("brown");
-		rangers.add("cony");
-		rangers.add("james");
-		rangers.add("moon");
-		rangers.add("sally");
-		
 		return rangers;
+	}
+
+	@Override
+	public String getRanger(int listIndex) {
+		if(listIndex<0) {
+			return rangers.get(0);
+		}else if(listIndex>rangers.size()-1) {
+			return rangers.get(rangers.size()-1);
+		}else 
+			return rangers.get(listIndex);
+		
 	}
 	
 	

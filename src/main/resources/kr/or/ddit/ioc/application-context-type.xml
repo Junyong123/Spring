@@ -20,11 +20,15 @@
 	</bean>
 	
 	<bean id="customEditorConfigurer" class="org.springframework.beans.factory.config.CustomEditorConfigurer">
-		<property name="customEditors">
-			<map>
-				<!-- value-ref = "dateEditor"는 위에있는 bean에서 지정한 id -->
-				<entry key="java.util.Date" value-ref="dateEditor"/> 
-			</map>
+		<property name="propertyEditorRegistrars">
+			<list>
+				<bean class="kr.or.ddit.ioc.CustomDateRegistrar"/>
+			</list>
+			
+<!-- 			<map> -->
+<!-- 				value-ref = "dateEditor"는 위에있는 bean에서 지정한 id -->
+<!-- 				<entry key="java.util.Date" value-ref="dateEditor"/>  -->
+<!-- 			</map> -->
 		</property>
 	</bean>
 	

@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 
 import kr.or.ddit.ranger.dao.IRangerDao;
 
-@Service("rangerS")
+@Service("rangerService")
 public class RangerServiceImpl implements IRangerService{
 
-	@Resource(name="rangerD")
+	@Resource(name="rangerDao")
 	private IRangerDao rangerDao;
 	
 	public RangerServiceImpl() {
@@ -36,5 +36,13 @@ public class RangerServiceImpl implements IRangerService{
 	public IRangerDao getRangerDao() {
 		return this.rangerDao;
 	}
+
+	@Override
+	public String getRanger(int index) {
+		
+		return rangerDao.getRanger(index);
+	}
+	
+	
 	
 }

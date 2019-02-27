@@ -17,4 +17,6 @@ public interface IRangerService {
 	List<String> getRangers();
 	
 	IRangerDao getRangerDao();
+	
+	String getRanger(int index);
 }
