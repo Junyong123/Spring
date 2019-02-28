@@ -1,23 +1,15 @@
 package kr.or.ddit.ranger.controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ddit.test.WebTestConfig;
@@ -53,11 +45,18 @@ public class RangerControllerTest extends WebTestConfig{
 		String viewName = mav.getViewName();
 		Map<String, Object> model = mav.getModel();
 		List<String> rangers = (List<String>)model.get("rangers");
+		
+		// @ModelAttribute test
+		List<String> boardGbList = (List<String>) model.get("boardGb");
 				
 		/***Then***/
 		assertEquals("/ranger/rangerList", viewName);
 		assertNotNull(rangers);
 		assertEquals(5, rangers.size());
+		
+		// @ModelAttribute test
+		assertNotNull(boardGbList);
+		assertEquals(4, boardGbList.size());
 	}
 
 	
@@ -82,11 +81,36 @@ public class RangerControllerTest extends WebTestConfig{
 		String viewName = mav.getViewName();
 		ModelMap modelMap = mav.getModelMap();
 		
-		String ranger = (String)modelMap.get("ranger");
 		// 미리 지정한 model에서의 속성
+		String ranger = (String)modelMap.get("ranger");
 		
+		List<String> boardGb = (List<String>) modelMap.get("boardGb");		
 		/***Then***/
 		assertEquals("/ranger/ranger", viewName);
 		assertEquals("james", ranger);
+		assertNotNull(boardGb);
+		assertEquals(4, boardGb.size());
 	}
+	
+	/**
+	* Method : testGetRangerMav
+	* 작성자 : pc15
+	* 변경이력 :
+	* @throws Exception
+	* Method 설명 : ModelAndView객체를 이용한 리턴 테스트
+	*/
+	@Test
+	public void testGetRangerMav() throws Exception{
+		/***Given***/
+		
+		/***When***/
+		MvcResult mvcResult = mockMvc.perform(get("/ranger/getRangersMav")).andReturn();
+		ModelAndView mav = mvcResult.getModelAndView();
+		
+		/***Then***/
+		assertEquals("ranger/rangerList", mav.getViewName());
+		assertEquals(5	, ((List<String>)mav.getModel().get("rangers")).size());
+
+	}
+	
 }
