@@ -1,4 +1,4 @@
-package kr.or.ddit.ioc;
+package kr.or.ddit.ioc.ranger.dao;
 
 import static org.junit.Assert.*;
 
