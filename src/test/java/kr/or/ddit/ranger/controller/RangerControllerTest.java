@@ -1,4 +1,4 @@
-package kr.or.ddit.ioc.ranger.controller;
+package kr.or.ddit.ranger.controller;
 
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -20,13 +20,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
-// 기본 설정
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:kr/or/ddit/config/spring/servlet-context.xml",
-				"classpath:kr/or/ddit/config/spring/application-context.xml"})
-@WebAppConfiguration // 스프링 컨테이너를 만들때 WebApplicationContext로 생성
-					 // 미적용시 applcationContext
-public class RangerControllerTest {
+import kr.or.ddit.test.WebTestConfig;
+
+public class RangerControllerTest extends WebTestConfig{
 
 //	1.스프링 컨테이너 설정 필요
 //	테스트 대상은 RangerController
@@ -36,21 +32,6 @@ public class RangerControllerTest {
 //	RangerController를 만들기 위해서는 RangerService, RangerDao 스프링 빈이 필요
 //	그렇기 때문에 RangerController를 스캔하는 Servlet-context.xml뿐만 아니라
 //	RangerService , RangerDao를 스캔하는 application-context.xml도 필요
-	
-	@Autowired
-	private WebApplicationContext context;
-	private MockMvc mockMvc;
-	
-	// @BeforeClass (Static --> 사용빈도 낮음)
-	//   @Before - @Test -@After
-	//   @Before - @Test -@After
-	// .......
-	// @AfterClass (Static --> 사용빈도 낮음)
-	
-	@Before
-	public void setup(){
-		mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
-	}
 	
 	/**
 	* Method : testGetRanger
@@ -80,6 +61,13 @@ public class RangerControllerTest {
 	}
 
 	
+	/**
+	* Method : testGetRanger
+	* 작성자 : pc15
+	* 변경이력 :
+	* @throws Exception
+	* Method 설명 : listIndex에 해당하는 레인저 이름 조회
+	*/
 	@Test
 	public void testGetRanger() throws Exception{
 		/***Given***/
@@ -90,10 +78,12 @@ public class RangerControllerTest {
 		// jsp에서 get방식으로 보내는 형태 param에서는 인스턴스를 보내줌
 		
 		ModelAndView mav = mvcResult.getModelAndView();
-		String viewName = mav.getViewName();
 		
+		String viewName = mav.getViewName();
 		ModelMap modelMap = mav.getModelMap();
+		
 		String ranger = (String)modelMap.get("ranger");
+		// 미리 지정한 model에서의 속성
 		
 		/***Then***/
 		assertEquals("/ranger/ranger", viewName);
