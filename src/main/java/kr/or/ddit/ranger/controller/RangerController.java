@@ -137,7 +137,6 @@ public class RangerController {
 	*/
 	@RequestMapping(path="/getRangersMav")
 	public ModelAndView getRangersMav(){
-		
 		List<String> rangers = rangerService.getRangers();
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("rangers", rangers);
