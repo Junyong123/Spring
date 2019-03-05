@@ -35,7 +35,7 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h1 class="page-header">사용자 정보 조회</h1>
           	
-          	<form class="form-horizontal" role="form" action="<%=request.getContextPath()%>/userModifyForm" method="get">
+          	<form class="form-horizontal" role="form" action="<%=request.getContextPath()%>/user/userModifyForm" method="get">
           	
 				<div class="form-group">
 					<label for="userNm" class="col-sm-2 control-label">사진</label>
