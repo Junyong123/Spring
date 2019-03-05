@@ -9,8 +9,8 @@
   <!-- vo 별칭 부여 -->
   <typeAliases>
   	<typeAlias alias="UserVO" type="kr.or.ddit.user.model.UserVO"/>
-<!--   	<typeAlias alias="LprodVO" type="kr.or.ddit.lprod.model.LprodVO"/> -->
-<!--   	<typeAlias alias="ProdVO" type="kr.or.ddit.lprod.model.ProdVO"/> -->
+  	<typeAlias alias="LprodVO" type="kr.or.ddit.lprod.model.LprodVO"/>
+  	<typeAlias alias="ProdVO" type="kr.or.ddit.lprod.model.ProdVO"/>
   	<typeAlias alias="PageVO" type="kr.or.ddit.util.model.PageVO"/>
   </typeAliases>
   
@@ -29,6 +29,6 @@
   <!-- mapper 설정 -->
   <mappers>
     <mapper resource="kr/or/ddit/db/mybatis/mapper/user.xml"/>
-<!--     <mapper resource="kr/or/ddit/db/mybatis/mapper/user.xml"/> -->
+    <mapper resource="kr/or/ddit/db/mybatis/mapper/lprod.xml"/>
   </mappers>
 </configuration>

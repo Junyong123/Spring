@@ -7,6 +7,6 @@
 </ul>
 
 <ul class="nav nav-sidebar">
-    <li><a href="<%=request.getContextPath()%>/user/lprodAllList">제품 그룹리스트 조회</a></li>
-    <li><a href="<%=request.getContextPath()%>/user/lprodPagingList">제품 그룹리스트 페이징</a></li>
+    <li><a href="<%=request.getContextPath()%>/lprod/lprodAllList">제품 그룹리스트 조회</a></li>
+    <li><a href="<%=request.getContextPath()%>/lprod/lprodPagingList">제품 그룹리스트 페이징</a></li>
 </ul>
