@@ -3,9 +3,21 @@ package kr.or.ddit.user.model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class UserVO {
+	
+	// @NotBlank // white space 기능
+	// 에러코드 : 어노테이션 명 -> 메시지 소스에 어노테이션명.필드 = 에러메시지 등록
+//	@NotEmpty // white space도 거절
 	private String userId; // 사용자 아이디
+	
 	private String userNm; // 사용자 이름
+	
+//	@Size(min=8)
 	private String pass; // 사용자 비밀번호
 	private String alias; // 별명
 	private String addr1; // 주소

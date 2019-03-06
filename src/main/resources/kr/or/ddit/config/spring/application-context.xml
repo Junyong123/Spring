@@ -17,4 +17,16 @@
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
 	</context:component-scan>
 	
+	<!-- 
+		messageSource 등록
+		bean id는 'messageSource'로 해야 spring에서 인식가능
+	 -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>classpath:kr/or/ddit/config/msg/error</value>
+			</list>
+		</property>
+	</bean>
+	
 </beans>

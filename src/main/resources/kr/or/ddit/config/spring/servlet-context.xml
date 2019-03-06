@@ -21,11 +21,10 @@
 
 	<!-- @Controller 스캔 -->
 	<context:annotation-config/>
-	<!-- 모든 어노테이션을 허가하고 불필요한 어노테이션 거부 -->
-	<context:component-scan base-package="kr.or.ddit" use-default-filters="true">
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
-<!-- 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Component"/> -->
+	<!-- 모든 어노테이션을 거부하고 필요한 어노테이션 승인 -->
+	<context:component-scan base-package="kr.or.ddit" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
 	</context:component-scan>
 	
 	<!-- 
