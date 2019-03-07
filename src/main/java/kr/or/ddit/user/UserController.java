@@ -54,8 +54,8 @@ public class UserController {
 		
 		model.addAttribute("ulist",ulist);
 		
-//		return "/user/userAllList";
-		return "userAllListTiles";
+		return "/user/userAllList";
+//		return "userAllListTiles";
 	}
 	
 	/**
@@ -81,6 +81,81 @@ public class UserController {
 		model.addAttribute("page",pageVO.getPage());
 		
 		return "userPagingTiles";
+	}
+	
+	/**
+	 * Method : userPagingListAjaxView
+	 * 작성자 : pc11
+	 * 변경이력 :
+	 * @return
+	 * Method 설명 : 사용자 페이지 리스트 뷰
+	 */
+	@RequestMapping("/userPagingListAjaxView")
+	public String userPagingListAjaxView(){
+		return "userPagingListAjaxTiles"; //tiles 설정파일의 definition 이름(name)과 동일함
+	}
+	
+	/**
+	 * Method : userPagingListAjax
+	 * 작성자 : pc11
+	 * 변경이력 :
+	 * @param pageVO
+	 * @param model
+	 * @return
+	 * Method 설명 : 사용자 페이지 리스트 ajax 요청 처리
+	 */
+	@RequestMapping("/userPagingListAjax")
+	public String userPagingListAjax(PageVO pageVO, Model model){
+		int page = pageVO.getPage();
+		int pageSize = pageVO.getPageSize();
+		
+		Map<String, Object> resultMap = userService.selectUserPagingList(pageVO);
+		List<UserVO> userList = (List<UserVO>) resultMap.get("userList");
+		
+		int userCnt = (int) resultMap.get("userCnt");
+		int lastPage = userCnt/pageSize + (userCnt%pageSize > 0 ? 1 : 0);
+		int lastPageStartPage = ((lastPage - 1) / 10) * 10 + 1;
+		int startPage = ((page - 1) / 10) * 10 + 1; 
+		int endPage = startPage + 10 - 1;
+		
+		model.addAttribute("userList", userList);
+		model.addAttribute("page", page);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("lastPage", lastPage);
+		model.addAttribute("lastPageStartPage", lastPageStartPage);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		
+		return "jsonView"; //bean 객체의 이름과 동일함
+	}
+	
+	@RequestMapping("/userPagingListAjaxHtml")
+	public String userPagingListAjaxHtml(PageVO pageVO, Model model){
+		int page = pageVO.getPage();
+		int pageSize = pageVO.getPageSize();
+		
+		Map<String, Object> resultMap = userService.selectUserPagingList(pageVO);
+		List<UserVO> userList = (List<UserVO>) resultMap.get("userList");
+		
+		int userCnt = (int) resultMap.get("userCnt");
+		int lastPage = userCnt/pageSize + (userCnt%pageSize > 0 ? 1 : 0);
+		int lastPageStartPage = ((lastPage - 1) / 10) * 10 + 1;
+		int startPage = ((page - 1) / 10) * 10 + 1; 
+		int endPage = startPage + 10 - 1;
+		
+		model.addAttribute("userList", userList);
+		model.addAttribute("page", page);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("lastPage", lastPage);
+		model.addAttribute("lastPageStartPage", lastPageStartPage);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		
+		logger.debug("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+		logger.debug("userList : {}", userList);
+		logger.debug("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+		
+		return "/user/userPagingListAjaxHtml";
 	}
 	
 	@RequestMapping(path="/user",method=RequestMethod.GET)
