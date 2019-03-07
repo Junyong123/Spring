@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -22,55 +23,28 @@
     <!-- Custom styles for this template -->
     <link href="<%=request.getContextPath() %>/css/dashboard.css" rel="stylesheet">
 	
-  </head>
-
-  <body>
-  	<%@ include file="/WEB-INF/module/header.jsp" %>
-
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-        	<%@ include file="/WEB-INF/module/left.jsp" %> 
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">전체 사용자 리스트</h1>
-          	<!-- userList 정보를 화면에 출력하는 로직 작성 -->
-          	<div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>사용자 아이디</th>
-                  <th>사용자 이름</th>
-                  <th>별명</th>
-                  <th>등록일시</th>
-                </tr>
-              </thead>
-              <tbody>
-                
-                <c:forEach items="${ulist }" var ="user" varStatus="i">
-                <%-- 향상된 for문은 begin이 없어서 i값을 구할 수 없음으로 varStatus를 이용해서 구한다 --%> 
-                	<tr class='userTr' data-userid='${user.userId }'>
-                		<td> ${i.index } </td>>
-                		<td> ${user.userId }</td>
-                		<td> ${user.userNm }</td>
-                		<td> --- </td>
-                		<td> <fmt:formatDate value="${vo.get_dt }" pattern="yyyy-MM-dd"/></td>
-                	</tr>
-               </c:forEach>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bootstrap core JavaScript
+	 <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	
+  </head>
+
+  <body>
+	<tiles:insertAttribute name="header"/>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+        	<tiles:insertAttribute name="left"/>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+         	<tiles:insertAttribute name="content"/>
+        </div>
+      </div>
+    </div>
+
 	<script>
 		//문서로딩이 완료된 이후 이벤트 등록
 		$(document).ready(function(){
@@ -117,7 +91,7 @@
 		// el은 request나 context에 직접 접근이 불가능하다
 	%>
 	
-	<form id ="frm" action="${pageContext.servletContext.contextPath }/user/user" method="get">
+	<form id ="frm" action="${pageContext.servletContext.contextPath }/user" method="get">
 		<input type="hidden" id="userId" name="userId"/>
 	</form>
   </body>

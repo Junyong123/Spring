@@ -2,14 +2,31 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
+	<!-- test용 -->
         <definition name="testLayout" template="/WEB-INF/template/testLayout.jsp">
         	<put-attribute name="header" value="/WEB-INF/template/testHeader.jsp"/>
         	<put-attribute name="left" value="/WEB-INF/template/testLeft.jsp"/>
         	<put-attribute name="content" value=""/>
         </definition>
-        
         <definition name="ht" extends="testLayout">
         	<put-attribute name="content" value="/WEB-INF/hello.jsp"/>
+        </definition>
+        
+        
+        
+        <definition name="layout" template="/WEB-INF/module/layout.jsp">
+        	<put-attribute name="header" value="/WEB-INF/module/newHeader.jsp"/>
+        	<put-attribute name="left" value="/WEB-INF/module/left.jsp"/>
+        	<put-attribute name="content" value=""/>
+        </definition>
+        <definition name="userAllListTiles" extends="layout">
+        	<put-attribute name="content" value="/WEB-INF/user/userAllListContent.jsp"/>
+        </definition>
+        <definition name="userTiles" extends="layout">
+        	<put-attribute name="content" value="/WEB-INF/user/userContent.jsp"/>
+        </definition>
+        <definition name="userPagingTiles" extends="layout">
+        	<put-attribute name="content" value="/WEB-INF/user/userPagingListContent.jsp"/>
         </definition>
         
 </tiles-definitions>

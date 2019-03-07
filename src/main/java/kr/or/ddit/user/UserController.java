@@ -54,7 +54,8 @@ public class UserController {
 		
 		model.addAttribute("ulist",ulist);
 		
-		return "/user/userAllList";
+//		return "/user/userAllList";
+		return "userAllListTiles";
 	}
 	
 	/**
@@ -79,7 +80,7 @@ public class UserController {
 		model.addAttribute("pageSize",pageVO.getPageSize());
 		model.addAttribute("page",pageVO.getPage());
 		
-		return "/user/userPagingList";
+		return "userPagingTiles";
 	}
 	
 	@RequestMapping(path="/user",method=RequestMethod.GET)
@@ -88,7 +89,8 @@ public class UserController {
 		UserVO userVO = userService.selectUser(userId);
 		model.addAttribute("userVO",userVO);
 		
-		return "/user/user";
+//		return "/user/user";
+		return "userTiles";
 	}
 	
 	@RequestMapping("/profileImg")
