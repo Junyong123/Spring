@@ -131,6 +131,7 @@ public class UserController {
 	
 	@RequestMapping("/userPagingListAjaxHtml")
 	public String userPagingListAjaxHtml(PageVO pageVO, Model model){
+		// page는 pageVO에 있는 page에 담긴다
 		int page = pageVO.getPage();
 		int pageSize = pageVO.getPageSize();
 		
