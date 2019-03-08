@@ -6,14 +6,10 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Service;
 
-import kr.or.ddit.db.mybatis.MybatisSqlSessionFactory;
 import kr.or.ddit.encrypt.kisa.sha256.KISA_SHA256;
 import kr.or.ddit.user.dao.IUserDao;
-import kr.or.ddit.user.dao.UserDaoImpl;
 import kr.or.ddit.user.model.UserVO;
 import kr.or.ddit.util.model.PageVO;
 
@@ -38,11 +34,8 @@ public class UserServiceImpl implements IUserService {
 	 */
 	@Override
 	public List<UserVO> getAllUser() {
-		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
-		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
-		List<UserVO> userlist = userDao.getAllUser(sqlSession);
-		sqlSession.close();
+		List<UserVO> userlist = userDao.getAllUser();
 		return userlist;
 	}
 
@@ -56,11 +49,8 @@ public class UserServiceImpl implements IUserService {
 	 */
 	@Override
 	public UserVO selectUser(String userId) {
-		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
-		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
-		UserVO uvo = userDao.selectUser(sqlSession, userId);
-		sqlSession.close();
+		UserVO uvo = userDao.selectUser(userId);
 		return uvo;
 	}
 
@@ -74,58 +64,41 @@ public class UserServiceImpl implements IUserService {
 	 */
 	@Override
 	public Map<String, Object> selectUserPagingList(PageVO pageVO) {
-		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
-		SqlSession sqlSession = sqlSessionFactory.openSession();
 		//결과값을 두개 담아서 return 하기위해 Map 객체 사용
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
-		resultMap.put("userList", userDao.selectUserPagingList(sqlSession,pageVO));
-		resultMap.put("userCnt", userDao.getUserCnt(sqlSession));
-		sqlSession.close();
+		resultMap.put("userList", userDao.selectUserPagingList(pageVO));
+		resultMap.put("userCnt", userDao.getUserCnt());
 		return resultMap;
 	}
 
 	@Override
 	public int insertUser(UserVO vo) {
-		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
-		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
-		int cnt = userDao.insertUser(sqlSession, vo);
-		sqlSession.commit();
-		// insert의 경우에만 commit을 입력해준다
-		sqlSession.close();
+		int cnt = userDao.insertUser(vo);
 		
 		return cnt;
 	}
 
 	@Override
 	public int updateUser(UserVO vo) {
-		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
-		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
-		int cnt = userDao.updateUser(sqlSession, vo);
-		sqlSession.commit();
-		sqlSession.close();
+		int cnt = userDao.updateUser(vo);
 		
 		return cnt;
 	}
 
 	@Override
 	public int encryptPass() {
-		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
-		SqlSession sqlSession = sqlSessionFactory.openSession();
-		
-		List<UserVO> uvolist = userDao.getAllUser(sqlSession);
+		List<UserVO> uvolist = userDao.getAllUser();
 		int cnt=0;
 		for(UserVO uvo : uvolist){
 			String pass = uvo.getPass();
 			String encryptPass = KISA_SHA256.encrypt(pass);
 			
 			uvo.setPass(encryptPass);
-			cnt = userDao.encryptPass(sqlSession, uvo);
+			cnt = userDao.encryptPass(uvo);
 		}
-		sqlSession.commit();
-		sqlSession.close();
 		
 		return cnt;
 	}

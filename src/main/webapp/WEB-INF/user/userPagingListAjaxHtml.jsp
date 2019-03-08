@@ -24,7 +24,8 @@
 	</c:when>
 	<c:otherwise>
 		<li>
-			<a href="javascript:getUserPagingListHtml(1);" aria-label="Previous">
+			<a href="javascript:getUserPagingListHtml(1);" aria-label="Previous"> 
+			<!-- 자바스크립트안에 선언된 메소드 실행하는 방법 -->
 				<span aria-hidden="true">&laquo;</span>
 			</a>
 		</li>

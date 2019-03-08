@@ -3,8 +3,6 @@ package kr.or.ddit.user.service;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.session.SqlSession;
-
 import kr.or.ddit.user.model.UserVO;
 import kr.or.ddit.util.model.PageVO;
 

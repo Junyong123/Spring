@@ -8,13 +8,11 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import kr.or.ddit.db.mybatis.MybatisSqlSessionFactory;
 import kr.or.ddit.test.LogicTestConfig;
 import kr.or.ddit.user.model.UserVO;
 import kr.or.ddit.util.model.PageVO;
 
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,19 +23,14 @@ public class UserDaoImplTest extends LogicTestConfig{
 	@Resource
 	private IUserDao userDao;
 	
-	private SqlSession sqlSession;
-	
 	@Before
 	public void setup(){
-		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
-		sqlSession = sqlSessionFactory.openSession();
 		
-		userDao.deleteUser(sqlSession, "test1");
+		userDao.deleteUser("test1");
 	}
 	
 	@After
 	public void tearDown(){
-		sqlSession.close();
 	}
 
 	@Test
@@ -45,7 +38,7 @@ public class UserDaoImplTest extends LogicTestConfig{
 		/***Given***/
 		
 		/***When***/
-		List<UserVO> list = userDao.getAllUser(sqlSession);
+		List<UserVO> list = userDao.getAllUser();
 		
 		/***Then***/
 		assertNotNull(list);
@@ -58,7 +51,7 @@ public class UserDaoImplTest extends LogicTestConfig{
 		/***Given***/
 		
 		/***When***/
-		UserVO userVO = userDao.selectUser(sqlSession,"brown");
+		UserVO userVO = userDao.selectUser("brown");
 		
 		/***Then***/
 		assertNotNull(userVO);
@@ -71,7 +64,7 @@ public class UserDaoImplTest extends LogicTestConfig{
 		PageVO pageVO = new PageVO(1, 10);
 		
 		/***When***/
-		List<UserVO> userList = userDao.selectUserPagingList(sqlSession,pageVO);
+		List<UserVO> userList = userDao.selectUserPagingList(pageVO);
 		for(UserVO vo : userList){
 			System.out.println(vo.toString());
 		}
@@ -87,7 +80,7 @@ public class UserDaoImplTest extends LogicTestConfig{
 		/***Given***/
 		
 		/***When***/
-		int userCnt = userDao.getUserCnt(sqlSession);
+		int userCnt = userDao.getUserCnt();
 		
 		/***Then***/
 		assertEquals(105, userCnt);
@@ -126,9 +119,9 @@ public class UserDaoImplTest extends LogicTestConfig{
 		uvo.setPass("testpass");
 		uvo.setReg_dt(date);
 		
-		userDao.deleteUser(sqlSession,"test1");
+		userDao.deleteUser("test1");
 		/***When***/
-		cnt = userDao.insertUser(sqlSession,uvo);
+		cnt = userDao.insertUser(uvo);
 
 		/***Then***/
 		assertEquals(1, cnt);

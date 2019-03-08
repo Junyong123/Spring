@@ -11,7 +11,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:kr/or/ddit/config/spring/application-context.xml"})
+@ContextConfiguration({"classpath:kr/or/ddit/config/spring/application-context.xml",	
+					   "classpath:kr/or/ddit/config/spring/context-datasource.xml",
+					   "classpath:kr/or/ddit/config/spring/context-transaction.xml"
+})
 public class LogicTestConfig {
 	
 	

@@ -36,8 +36,8 @@
   
   <insert id="insertUser" parameterType="userVO">
   	insert into users (userId,userNm,alias,addr1,addr2,zipcode,pass,reg_dt,filename,realFilename)
-	values(#{userId} , #{userNm} , #{alias} , #{addr1} , #{addr2} , #{zipcode} , #{pass} , sysdate, #{filename}, #{realFilename})
-  	
+	values(#{userId} , #{userNm} , #{alias} , #{addr1} , #{addr2} , #{zipcode} , #{pass} , sysdate, #{filename, jdbcType=VARCHAR}, #{realFilename, jdbcType=VARCHAR})
+  																									<!-- 초기값 없을시 설정 -->
   </insert>
   
   <!-- 사용자 삭제 -->
