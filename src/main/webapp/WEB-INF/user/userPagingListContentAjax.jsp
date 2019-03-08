@@ -94,27 +94,51 @@
 				
 				$("#userListTbody").html(htmlArr[0]);
 				$("#pagination").html(htmlArr[1]);
+				
+				// 클릭 이벤트
+				// html이 ajax 호출에 의해 정상적으로 생성된 이후 클릭 이벤트 핸들러를 등록
+				// (success -> 사용자 html이 생성된 이후에 등록)
+				$(".userTr").on("click", function() {
+					console.log("userTr click");
+					//클릭한 userTr태그의 userId 값을 출력
+					// 				console.log($(this).children()[1].innerText);
+					// 				console.log("data-userid : " + $(this).data("userid"));
+
+					var userId = $(this).data("userid");
+
+					// 1.document
+//	 				document.location = "/user?userId=" + userId;
+
+					// 2.form
+					$("#userId").val(userId);
+//	 				$("#frm").attr("action", "/user?작성"); //속성바꿀때 사용
+					$("#frm").submit();
+				
+				});
 			}
-			
 		});
+		
 	}
 		//문서로딩이 완료된 이후 이벤트 등록
 		$(document).ready(function() {
 			console.log("document ready");
-
-			//사용자 tr 태그 클릭시 이벤트 핸들러
-			// 			$(".userTr").click(function(){
-			// 			});
 			
-			getUserPagingListHtml(1);
-			// msg속성이 존재하면 alert 아니면 넘어가기
-			<c:if test="${msg != null}">
-				alert("${mag}");
-				<%session.removeAttribute("msg");%>
-			</c:if>
+			// ajax를 통한 html 생성시 이벤트 핸들러 등록 방법
+			// 1.html이 ajax 호출에 의해 정상적으로 생성된 이후 클릭이벤트 핸들러를 등록
+			// (success -> 사용자 html이 생성된 이후에 등록)
+			
+			// 2.이벤트 핸들러 대상을 변경(.userTr -> #userListTbody)
+			// 동적으로 생성되는 html을 감싸는 영역에 이벤트를 등록
+			// 단 on 옵션에서 감싸는 영역 안에 처리되어야할 selector를 명시
+			// $(".userTr").on("click",".userTr", function()){}
+			// --->
+			// $("#userListTbody").on("click",".userTr", function(){}
+			
+			$("#userListTbody").on("click",".userTr", function() {
+				// *******************************************
+				// userListTbody안에 있는 userTr태그에 이벤트를 삽입
+				// *******************************************
 				
-
-			$(".userTr").on("click", function() {
 				console.log("userTr click");
 				//클릭한 userTr태그의 userId 값을 출력
 				// 				console.log($(this).children()[1].innerText);
@@ -131,6 +155,14 @@
 				$("#frm").submit();
 			
 			});
+			
+			getUserPagingListHtml(1);
+			// msg속성이 존재하면 alert 아니면 넘어가기
+			<c:if test="${msg != null}">
+				alert("${mag}");
+				<%session.removeAttribute("msg");%>
+			</c:if>
+			
 		});
 	</script>
 <form id="frm" action="<%=request.getContextPath()%>/user/user"
