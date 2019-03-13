@@ -12,8 +12,6 @@
         	<put-attribute name="content" value="/WEB-INF/hello.jsp"/>
         </definition>
         
-        
-        
         <definition name="layout" template="/WEB-INF/module/layout.jsp">
         	<put-attribute name="header" value="/WEB-INF/module/newHeader.jsp"/>
         	<put-attribute name="left" value="/WEB-INF/module/left.jsp"/>
