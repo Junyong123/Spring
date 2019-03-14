@@ -64,4 +64,17 @@
 	</bean>
 	
 	
+	<!-- bean 이름 localeResolver로 정해져 있따 -->
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"/>
+	
+	<!-- localeCahngerInterceptor namespace(mvc) 추가 -->	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/> <!-- 모든 주소 -->
+			<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+				<property name="paramName" value="language"/> <!-- msgView.jsp name에 들어갈 녀석 value="" -->
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>	
+	
 </beans>

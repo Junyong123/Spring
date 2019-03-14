@@ -217,4 +217,9 @@ public class MvcController {
 		
 		return "ht";
 	}
+	
+	@RequestMapping("/msgView")
+	public String msgView(){
+		return "/mvc/msgView";
+	}
 }
