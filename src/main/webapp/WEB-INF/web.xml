@@ -11,7 +11,7 @@
   </welcome-file-list>
   
   <!-- needed for ContextLoaderListener -->
-  <!-- parent spring contrainer : 로직을 다른 자식 컨테이너에서 재사용 가능 -->
+  <!-- parent spring container : 로직을 다른 자식 컨테이너에서 재사용 가능 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:kr/or/ddit/config/spring/application-context.xml
